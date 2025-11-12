@@ -52,8 +52,11 @@ namespace Donare
                         int count = Convert.ToInt32(cmd.ExecuteScalar());
                         if (count > 0)
                         {
-                            MessageBox.Show("Inicio de sesión exitoso ✅");
+                            
+                            Inicio inicio = new Inicio();
+                            inicio.ShowDialog();
 
+                            this.Close();
                         }
                         else
                         {
