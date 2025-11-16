@@ -73,8 +73,7 @@ namespace Donare
 
         private void CrearUsuario_Click(object sender, EventArgs e)
         {
-            RegistrarUsuario registrarUsuario = new RegistrarUsuario();
-            registrarUsuario.ShowDialog();
+            
         }
     }
 }

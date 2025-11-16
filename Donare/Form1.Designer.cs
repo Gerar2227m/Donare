@@ -33,7 +33,6 @@ namespace Donare
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.CrearUsuario = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.txtContrasena = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
@@ -46,7 +45,6 @@ namespace Donare
             // 
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.CrearUsuario);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.txtContrasena);
             this.groupBox1.Controls.Add(this.txtUsuario);
@@ -75,16 +73,6 @@ namespace Donare
             this.label1.Size = new System.Drawing.Size(68, 20);
             this.label1.TabIndex = 4;
             this.label1.Text = "Usuario:";
-            // 
-            // CrearUsuario
-            // 
-            this.CrearUsuario.Location = new System.Drawing.Point(90, 360);
-            this.CrearUsuario.Name = "CrearUsuario";
-            this.CrearUsuario.Size = new System.Drawing.Size(224, 35);
-            this.CrearUsuario.TabIndex = 3;
-            this.CrearUsuario.Text = "Crear Usuario ";
-            this.CrearUsuario.UseVisualStyleBackColor = true;
-            this.CrearUsuario.Click += new System.EventHandler(this.CrearUsuario_Click);
             // 
             // button1
             // 
@@ -152,7 +140,6 @@ namespace Donare
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button CrearUsuario;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox txtContrasena;
         private System.Windows.Forms.TextBox txtUsuario;
