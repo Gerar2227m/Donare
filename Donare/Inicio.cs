@@ -22,5 +22,16 @@ namespace Donare
             RegistrarUsuario registrarUsuario = new RegistrarUsuario();
             registrarUsuario.ShowDialog();
         }
+
+        private void Inicio_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            Donantes donantes = new Donantes();
+            donantes.ShowDialog();
+        }
     }
 }

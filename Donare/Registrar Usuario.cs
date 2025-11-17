@@ -367,5 +367,10 @@ namespace Donare
                 }
             }
         }
+
+        private void RegistrarUsuario_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
