@@ -53,6 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cConexion.cs" />
+    <Compile Include="Donantes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Donantes.Designer.cs">
+      <DependentUpon>Donantes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +79,9 @@
     <Compile Include="Registrar Usuario.Designer.cs">
       <DependentUpon>Registrar Usuario.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Donantes.resx">
+      <DependentUpon>Donantes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

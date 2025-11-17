@@ -41,6 +41,8 @@ namespace Donare
             this.button2 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button12 = new System.Windows.Forms.Button();
             this.pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnlmenulateral.SuspendLayout();
@@ -82,6 +84,7 @@ namespace Donare
             // pnlmenulateral
             // 
             this.pnlmenulateral.BackColor = System.Drawing.Color.SeaShell;
+            this.pnlmenulateral.Controls.Add(this.button12);
             this.pnlmenulateral.Controls.Add(this.pictureBox2);
             this.pnlmenulateral.Controls.Add(this.button5);
             this.pnlmenulateral.Controls.Add(this.button4);
@@ -89,18 +92,19 @@ namespace Donare
             this.pnlmenulateral.Controls.Add(this.button2);
             this.pnlmenulateral.Controls.Add(this.button7);
             this.pnlmenulateral.Controls.Add(this.button1);
-            this.pnlmenulateral.Location = new System.Drawing.Point(0, 99);
+            this.pnlmenulateral.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlmenulateral.Location = new System.Drawing.Point(0, 80);
             this.pnlmenulateral.Name = "pnlmenulateral";
-            this.pnlmenulateral.Size = new System.Drawing.Size(264, 860);
+            this.pnlmenulateral.Size = new System.Drawing.Size(264, 970);
             this.pnlmenulateral.TabIndex = 1;
             // 
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(40, 45);
+            this.pictureBox2.Location = new System.Drawing.Point(33, 47);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(46, 44);
+            this.pictureBox2.Size = new System.Drawing.Size(41, 40);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
@@ -110,11 +114,11 @@ namespace Donare
             this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button5.Location = new System.Drawing.Point(21, 661);
+            this.button5.Location = new System.Drawing.Point(22, 694);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(222, 84);
             this.button5.TabIndex = 12;
-            this.button5.Text = "ADMINISTRADOR";
+            this.button5.Text = "CAMPAÑAS";
             this.button5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button5.UseVisualStyleBackColor = false;
             // 
@@ -123,11 +127,11 @@ namespace Donare
             this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button4.Location = new System.Drawing.Point(22, 530);
+            this.button4.Location = new System.Drawing.Point(22, 559);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(222, 84);
+            this.button4.Size = new System.Drawing.Size(222, 109);
             this.button4.TabIndex = 11;
-            this.button4.Text = "ADMINISTRADOR";
+            this.button4.Text = "HISTORIAL DE \r\nACTIVIDADES";
             this.button4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button4.UseVisualStyleBackColor = false;
             // 
@@ -136,11 +140,11 @@ namespace Donare
             this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button3.Location = new System.Drawing.Point(21, 402);
+            this.button3.Location = new System.Drawing.Point(21, 451);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(222, 84);
             this.button3.TabIndex = 10;
-            this.button3.Text = "ADMINISTRADOR";
+            this.button3.Text = "REPORTES";
             this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button3.UseVisualStyleBackColor = false;
             // 
@@ -149,11 +153,11 @@ namespace Donare
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button2.Location = new System.Drawing.Point(22, 272);
+            this.button2.Location = new System.Drawing.Point(22, 344);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(222, 84);
             this.button2.TabIndex = 9;
-            this.button2.Text = "ADMINISTRADOR";
+            this.button2.Text = "SOLICITUDES";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button2.UseVisualStyleBackColor = false;
             // 
@@ -162,11 +166,11 @@ namespace Donare
             this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button7.Location = new System.Drawing.Point(21, 148);
+            this.button7.Location = new System.Drawing.Point(21, 236);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(222, 84);
             this.button7.TabIndex = 8;
-            this.button7.Text = "ADMINISTRADOR";
+            this.button7.Text = "DONACIONES";
             this.button7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button7.UseVisualStyleBackColor = false;
             // 
@@ -184,11 +188,34 @@ namespace Donare
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.SeaShell;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel1.Location = new System.Drawing.Point(1478, 80);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(264, 970);
+            this.panel1.TabIndex = 13;
+            // 
+            // button12
+            // 
+            this.button12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button12.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.button12.Location = new System.Drawing.Point(21, 126);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(222, 84);
+            this.button12.TabIndex = 13;
+            this.button12.Text = "DONANTES";
+            this.button12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button12.UseVisualStyleBackColor = false;
+            // 
             // Inicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1742, 901);
+            this.ClientSize = new System.Drawing.Size(1742, 1050);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlmenulateral);
             this.Controls.Add(this.pnlHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -218,5 +245,7 @@ namespace Donare
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button12;
     }
 }
