@@ -37,6 +37,8 @@ namespace Donare
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.textBox4 = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabpersonal.SuspendLayout();
             this.SuspendLayout();
@@ -54,6 +56,8 @@ namespace Donare
             // tabpersonal
             // 
             this.tabpersonal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.tabpersonal.Controls.Add(this.comboBox2);
+            this.tabpersonal.Controls.Add(this.comboBox1);
             this.tabpersonal.Controls.Add(this.textBox4);
             this.tabpersonal.Controls.Add(this.dateTimePicker1);
             this.tabpersonal.Controls.Add(this.textBox3);
@@ -113,6 +117,22 @@ namespace Donare
             this.textBox4.Size = new System.Drawing.Size(100, 26);
             this.textBox4.TabIndex = 4;
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(65, 351);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 28);
+            this.comboBox1.TabIndex = 5;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(65, 413);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 28);
+            this.comboBox2.TabIndex = 6;
+            // 
             // Donantes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -138,5 +158,7 @@ namespace Donare
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
