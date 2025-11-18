@@ -32,9 +32,21 @@ namespace Donare
             numPulso.ValueChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
             numTemperatura.ValueChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
             numHemoglobina.ValueChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
-            txtPresion.TextChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();  // ← importante para presión
             dtpFechaNacimiento.ValueChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
             cmbSexo.SelectedIndexChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
+
+            // ESTOS SON LOS IMPORTANTES QUE FALTABAN:
+            txtPresion.TextChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
+            txtPresion.KeyPress += txtPresion_KeyPress;  // ← el de la barra que ya tienes
+
+            // Enfermedades (ESTOS SON LOS QUE NO SE ACTUALIZABAN)
+            chkVIH.CheckedChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
+            chkHepB.CheckedChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
+            chkHepB.CheckedChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
+            chkHepC.CheckedChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
+            chkSifilis.CheckedChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
+
+            ControlarEstadoCampos();
         }
 
         private void ConfigurarControles()
@@ -67,7 +79,7 @@ namespace Donare
             cmbSexo.Items.AddRange(new[] { "M", "F" });
             cmbTipoDocumento.Items.AddRange(new[] { "DUI", "Pasaporte", "Otro" });
             cmbGrupoSanguineo.Items.AddRange(new[] { "A", "B", "AB", "O" });
-            cmbGrupoSanguineo.Items.AddRange(new[] { "+", "-" });
+            cmbRh.Items.AddRange(new[] { "+", "-" });
         }
 
         // BOTONES
@@ -80,6 +92,8 @@ namespace Donare
             txtIdDonante.Text = idDonanteActual;
             dtpFechaRegistro.Value = DateTime.Today;
             txtNombreCompleto.Focus();
+
+            ControlarEstadoCampos();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -176,7 +190,9 @@ namespace Donare
             }
 
             modoEdicion = true;
+            ControlarEstadoCampos();
             MessageBox.Show("Puedes modificar los datos.\nAl terminar, presiona GUARDAR.", "Modo Edición", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -241,11 +257,12 @@ namespace Donare
                     cmd.Parameters.AddWithValue("@temp", numTemperatura.Value);
                     cmd.Parameters.AddWithValue("@hb", numHemoglobina.Value);
                     cmd.Parameters.AddWithValue("@grupo", cmbGrupoSanguineo.Text);
-                    cmd.Parameters.AddWithValue("@rh", cmbGrupoSanguineo.Text);
+                    cmd.Parameters.AddWithValue("@rh", cmbRh.Text);  
                     cmd.Parameters.AddWithValue("@vih", chkVIH.Checked);
                     cmd.Parameters.AddWithValue("@hepb", chkHepB.Checked);
                     cmd.Parameters.AddWithValue("@hepc", chkHepC.Checked);
                     cmd.Parameters.AddWithValue("@sifi", chkSifilis.Checked);
+                    cmd.Parameters.AddWithValue("@chag", "");
                     cmd.Parameters.AddWithValue("@hist", txtHistorialRelevante.Text.Trim());
                     cmd.Parameters.AddWithValue("@apto", chkApto.Checked);
                     cmd.ExecuteNonQuery();
@@ -270,29 +287,7 @@ namespace Donare
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            if (esNuevo || string.IsNullOrEmpty(idDonanteActual)) return;
-
-            if (MessageBox.Show("¿Desactivar este donante?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-            {
-                SqlConnection con = conexion.ConexionServer();
-                try
-                {
-                    con.Open();
-                    SqlCommand cmd = new SqlCommand("UPDATE Donante SET Activo=0 WHERE IdDonante=@id", con);
-                    cmd.Parameters.AddWithValue("@id", idDonanteActual);
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Donante desactivado.");
-                    LimpiarTodo();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message);
-                }
-                finally
-                {
-                    con.Close();
-                }
-            }
+            
         }
 
         // Función para generar ID (ajústala a tu lógica)
@@ -441,7 +436,8 @@ namespace Donare
             { apto = false; motivo += "Prueba reactiva. "; }
 
             chkApto.Checked = apto;
-            return apto;  // devuelve true o false
+            chkApto.Refresh();  
+            return apto;
         }
 
         private bool EvaluarSiEstaApto_ConMensaje()
@@ -506,6 +502,249 @@ namespace Donare
                 txtPresion.SelectionStart = txtPresion.Text.Length;
             }
         }
-}
+
+        private void btnGuardar_Click_1(object sender, EventArgs e)
+        {
+            if (!ValidarDatos()) return;
+            if (!esNuevo && !modoEdicion)
+            {
+                MessageBox.Show("Presiona MODIFICAR para editar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            if (!EvaluarSiEstaApto_ConMensaje())
+            {
+                return; // ← NO GUARDA si no está apto
+            }
+
+            SqlConnection con = conexion.ConexionServer();
+            SqlTransaction tran = null;
+            try
+            {
+                con.Open();
+                tran = con.BeginTransaction();
+
+                // 1. Donante: INSERT o UPDATE
+                string sqlDonante = esNuevo ?
+                    @"INSERT INTO Donante (IdDonante, NombreCompleto, FechaNacimiento, SexoBiologico, TipoDocumento, NumeroDocumento, Telefono, Direccion, FechaRegistro)
+                  VALUES (@id, @nom, @fnac, @sex, @tipodoc, @numdoc, @tel, @dir, GETDATE())" :
+                    @"UPDATE Donante SET NombreCompleto=@nom, FechaNacimiento=@fnac, SexoBiologico=@sex,
+                  TipoDocumento=@tipodoc, NumeroDocumento=@numdoc, Telefono=@tel, Direccion=@dir
+                  WHERE IdDonante=@id";
+
+                using (SqlCommand cmd = new SqlCommand(sqlDonante, con, tran))
+                {
+                    cmd.Parameters.AddWithValue("@id", idDonanteActual);
+                    cmd.Parameters.AddWithValue("@nom", txtNombreCompleto.Text.Trim());
+                    cmd.Parameters.AddWithValue("@fnac", dtpFechaNacimiento.Value.Date);
+                    cmd.Parameters.AddWithValue("@sex", cmbSexo.Text);
+                    cmd.Parameters.AddWithValue("@tipodoc", cmbTipoDocumento.Text);
+                    cmd.Parameters.AddWithValue("@numdoc", txtNumeroDocumento.Text.Trim());
+                    cmd.Parameters.AddWithValue("@tel", txtTelefono.Text.Trim());
+                    cmd.Parameters.AddWithValue("@dir", txtDireccion.Text.Trim());
+                    cmd.ExecuteNonQuery();
+                }
+
+                // 2. Nueva evaluación médica
+                string sqlEval = @"
+                INSERT INTO EvaluacionMedica 
+                (IdDonante, FechaEvaluacion, Peso, Talla, PresionArterial, Pulso, Temperatura, Hemoglobina,
+                 IdTipoSangre, VIH, HepatitisB, HepatitisC, Sifilis, Chagas, HistorialRelevante, Apto)
+                VALUES 
+                (@id, GETDATE(), @peso, @talla, @pa, @pulso, @temp, @hb,
+                 (SELECT IdTipoSangre FROM TipoSangre WHERE Grupo=@grupo AND Rh=@rh),
+                 @vih, @hepb, @hepc, @sifi, @chag, @hist, @apto)";
+
+                using (SqlCommand cmd = new SqlCommand(sqlEval, con, tran))
+                {
+                    cmd.Parameters.AddWithValue("@id", idDonanteActual);
+                    cmd.Parameters.AddWithValue("@peso", numPeso.Value);
+                    cmd.Parameters.AddWithValue("@talla", numTalla.Value);
+                    cmd.Parameters.AddWithValue("@pa", txtPresion.Text.Trim());
+                    cmd.Parameters.AddWithValue("@pulso", numPulso.Value);
+                    cmd.Parameters.AddWithValue("@temp", numTemperatura.Value);
+                    cmd.Parameters.AddWithValue("@hb", numHemoglobina.Value);
+                    cmd.Parameters.AddWithValue("@grupo", cmbGrupoSanguineo.Text);
+                    cmd.Parameters.AddWithValue("@rh", cmbRh.Text);
+                    cmd.Parameters.AddWithValue("@vih", chkVIH.Checked);
+                    cmd.Parameters.AddWithValue("@hepb", chkHepB.Checked);
+                    cmd.Parameters.AddWithValue("@hepc", chkHepC.Checked);
+                    cmd.Parameters.AddWithValue("@sifi", chkSifilis.Checked);
+                    cmd.Parameters.AddWithValue("@chag", "");
+                    cmd.Parameters.AddWithValue("@hist", txtHistorialRelevante.Text.Trim());
+                    cmd.Parameters.AddWithValue("@apto", chkApto.Checked);
+                    cmd.ExecuteNonQuery();
+                }
+
+                tran.Commit();
+                MessageBox.Show(esNuevo ? "Donante registrado con éxito!" : "Datos actualizados correctamente!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                esNuevo = false;
+                modoEdicion = false;
+                ControlarEstadoCampos();
+
+            }
+            catch (Exception ex)
+            {
+                tran?.Rollback();
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (con.State == ConnectionState.Open) con.Close();
+            }
+        
+
+    }
+
+        private void btnBuscar_Click_1(object sender, EventArgs e)
+        {
+            using (var buscar = new frmBuscarDonante())
+            {
+                if (buscar.ShowDialog() == DialogResult.OK && !string.IsNullOrEmpty(buscar.IdDonanteSeleccionado))
+                {
+                    idDonanteActual = buscar.IdDonanteSeleccionado;
+
+                    // ===== AQUÍ EMPIEZA EL CÓDIGO QUE CARGA EL DONANTE (100% FUNCIONA) =====
+                    SqlConnection con2 = conexion.ConexionServer();
+                    try
+                    {
+                        con2.Open();
+                        SqlCommand cmd = new SqlCommand(@"
+                    SELECT d.*, em.*
+                    FROM Donante d
+                    LEFT JOIN EvaluacionMedica em ON d.IdDonante = em.IdDonante 
+                        AND em.FechaEvaluacion = (
+                            SELECT MAX(FechaEvaluacion) 
+                            FROM EvaluacionMedica 
+                            WHERE IdDonante = d.IdDonante
+                        )
+                    WHERE d.IdDonante = @id", con2);
+                        cmd.Parameters.AddWithValue("@id", idDonanteActual);
+                        SqlDataReader dr = cmd.ExecuteReader();
+
+                        if (dr.Read())
+                        {
+                            txtIdDonante.Text = dr["IdDonante"].ToString();
+                            txtNombreCompleto.Text = dr["NombreCompleto"].ToString();
+                            dtpFechaNacimiento.Value = Convert.ToDateTime(dr["FechaNacimiento"]);
+                            cmbSexo.Text = dr["SexoBiologico"].ToString();
+                            cmbTipoDocumento.Text = dr["TipoDocumento"].ToString();
+                            txtNumeroDocumento.Text = dr["NumeroDocumento"].ToString();
+                            txtTelefono.Text = dr["Telefono"]?.ToString() ?? "";
+                            txtDireccion.Text = dr["Direccion"]?.ToString() ?? "";
+                            dtpFechaRegistro.Value = Convert.ToDateTime(dr["FechaRegistro"]);
+
+                            // Si tiene evaluación médica
+                            if (!dr.IsDBNull(dr.GetOrdinal("Peso")))
+                            {
+                                numPeso.Value = Convert.ToDecimal(dr["Peso"]);
+                                numTalla.Value = Convert.ToDecimal(dr["Talla"]);
+                                txtPresion.Text = dr["PresionArterial"]?.ToString() ?? "";
+                                numPulso.Value = Convert.ToInt32(dr["Pulso"]);
+                                numTemperatura.Value = Convert.ToDecimal(dr["Temperatura"]);
+                                numHemoglobina.Value = Convert.ToDecimal(dr["Hemoglobina"]);
+
+                                int idTipo = Convert.ToInt32(dr["IdTipoSangre"]);
+                                SqlCommand cmdTipo = new SqlCommand("SELECT Grupo, Rh FROM TipoSangre WHERE IdTipoSangre = @t", con2);
+                                cmdTipo.Parameters.AddWithValue("@t", idTipo);
+                                SqlDataReader drTipo = cmdTipo.ExecuteReader();
+                                if (drTipo.Read())
+                                {
+                                    cmbGrupoSanguineo.Text = drTipo["Grupo"].ToString();
+                                    cmbRh.Text = drTipo["Rh"].ToString();
+                                }
+                                drTipo.Close();
+
+                                chkVIH.Checked = (bool)dr["VIH"];
+                                chkHepB.Checked = (bool)dr["HepatitisB"];
+                                chkHepC.Checked = (bool)dr["HepatitisC"];
+                                chkSifilis.Checked = (bool)dr["Sifilis"];
+                                txtHistorialRelevante.Text = dr["HistorialRelevante"]?.ToString() ?? "";
+                                chkApto.Checked = (bool)dr["Apto"];
+                            }
+
+                            esNuevo = false;
+                            modoEdicion = false;
+                            tabControl1.SelectedTab = tabpersonal;
+                            MessageBox.Show("Donante cargado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al cargar: " + ex.Message);
+                    }
+                    finally
+                    {
+                        con2.Close();
+                    }
+                }
+            }
+        }
+
+        private void btnEliminar_Click_1(object sender, EventArgs e)
+        {
+            if (esNuevo || string.IsNullOrEmpty(idDonanteActual)) return;
+
+            if (MessageBox.Show("¿Desactivar este donante?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                SqlConnection con = conexion.ConexionServer();
+                try
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("UPDATE Donante SET Activo=0 WHERE IdDonante=@id", con);
+                    cmd.Parameters.AddWithValue("@id", idDonanteActual);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Donante desactivado.");
+                    LimpiarTodo();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+                finally
+                {
+                    con.Close();
+                }
+            }
+
+
+        }
+
+        private void ControlarEstadoCampos()
+        {
+            bool habilitado = esNuevo || modoEdicion;
+
+            // Datos personales
+            txtNombreCompleto.ReadOnly = !habilitado;
+            dtpFechaNacimiento.Enabled = habilitado;
+            cmbSexo.Enabled = habilitado;
+            cmbTipoDocumento.Enabled = habilitado;
+            txtNumeroDocumento.ReadOnly = !habilitado;
+            txtTelefono.ReadOnly = !habilitado;
+            txtDireccion.ReadOnly = !habilitado;
+
+            // Evaluación médica
+            numPeso.Enabled = habilitado;
+            numTalla.Enabled = habilitado;
+            txtPresion.ReadOnly = !habilitado;
+            numPulso.Enabled = habilitado;
+            numTemperatura.Enabled = habilitado;
+            numHemoglobina.Enabled = habilitado;
+            cmbGrupoSanguineo.Enabled = habilitado;
+            cmbRh.Enabled = habilitado;
+            chkVIH.Enabled = habilitado;
+            chkHepB.Enabled = habilitado;
+            chkHepC.Enabled = habilitado;
+            chkSifilis.Enabled = habilitado;
+            txtHistorialRelevante.ReadOnly = !habilitado;
+            chkApto.Enabled = false; // ← este NUNCA se edita manualmente
+
+            // Botones
+            btnGuardar.Enabled = habilitado;
+            btnModificar.Enabled = !esNuevo && !modoEdicion;
+            btnEliminar.Enabled = !esNuevo;
+            btnNuevo.Enabled = true;
+        }
+    }
 }
 
