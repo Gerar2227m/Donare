@@ -33,5 +33,9 @@ namespace Donare
             Donantes donantes = new Donantes();
             donantes.ShowDialog();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+                    }
     }
 }
