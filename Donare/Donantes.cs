@@ -28,7 +28,7 @@ namespace Donare
             txtPresion.KeyPress += txtPresion_KeyPress;
 
             numPeso.ValueChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
-            numTalla.ValueChanged += (s, e) => { CalcularIMC(); EvaluarSiEstaApto_SinMensaje(); };
+            numTalla.ValueChanged += (s, e) => { ActualizarIMC(); EvaluarSiEstaApto_SinMensaje(); };
             numPulso.ValueChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
             numTemperatura.ValueChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
             numHemoglobina.ValueChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
@@ -338,8 +338,8 @@ namespace Donare
         private void ConfigurarNumericUpDowns()
         {
             // TALLA (altura en cm) → permite decimales
-            numTalla.DecimalPlaces = 1;
-            numTalla.Increment = 0.1M;
+            numTalla.DecimalPlaces = 0;    
+            numTalla.Increment = 1;
             numTalla.Minimum = 100;
             numTalla.Maximum = 220;
             numTalla.Value = 170;
@@ -371,22 +371,31 @@ namespace Donare
             numHemoglobina.Value = 14;
         }
 
-        private void CalcularIMC()
+        private void ActualizarIMC()
         {
-            if (numTalla.Value > 0)
+            if (numTalla.Value > 0 && numPeso.Value > 0)
             {
                 double alturaMetros = (double)numTalla.Value / 100;
                 double imc = (double)numPeso.Value / (alturaMetros * alturaMetros);
-                lblIMC.Text = $"IMC: {imc:F1}";  // ← asegúrate de tener un Label llamado lblIMC
 
-                // Color según IMC
-                if (imc < 18.5) lblIMC.ForeColor = Color.Orange;
-                else if (imc > 30) lblIMC.ForeColor = Color.Red;
-                else lblIMC.ForeColor = Color.Green;
+                string estado = imc < 18.5 ? "Bajo peso" :
+                                imc < 25 ? "Peso normal" :
+                                imc < 30 ? "Sobrepeso" :
+                                imc < 35 ? "Obesidad grado I" :
+                                imc < 40 ? "Obesidad grado II" : "Obesidad grado III";
+
+                Color color = imc < 18.5 ? Color.Orange :
+                              imc < 25 ? Color.Green :
+                              imc < 30 ? Color.Orange : Color.Red;
+
+                lblIMC.Text = $"IMC: {imc:F1} → {estado}";
+                lblIMC.ForeColor = color;
+                lblIMC.Font = new Font("Microsoft Sans Serif", 10F, FontStyle.Bold);
             }
             else
             {
                 lblIMC.Text = "IMC: -";
+                lblIMC.ForeColor = Color.Black;
             }
         }
 
@@ -744,6 +753,16 @@ namespace Donare
             btnModificar.Enabled = !esNuevo && !modoEdicion;
             btnEliminar.Enabled = !esNuevo;
             btnNuevo.Enabled = true;
+        }
+
+        private void numPeso_ValueChanged(object sender, EventArgs e)
+        {
+            ActualizarIMC();
+        }
+
+        private void numTalla_ValueChanged(object sender, EventArgs e)
+        {
+            ActualizarIMC();
         }
     }
 }
