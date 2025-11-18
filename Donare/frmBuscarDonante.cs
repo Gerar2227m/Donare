@@ -39,6 +39,32 @@ namespace Donare
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            
+        }
+
+        // Doble clic → selecciona y cierra
+        private void dgvResultados_DoubleClick(object sender, EventArgs e)
+        {
+            if (dgvResultados.CurrentRow != null && dgvResultados.CurrentRow.Cells["IdDonante"].Value != null)
+            {
+                IdDonanteSeleccionado = dgvResultados.CurrentRow.Cells["IdDonante"].Value.ToString();
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+        }
+
+        // Enter en el TextBox también busca
+        private void txtValor_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnBuscar.PerformClick();
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void btnBuscar_Click_1(object sender, EventArgs e)
+        {
             if (string.IsNullOrWhiteSpace(txtValor.Text))
             {
                 MessageBox.Show("Escribe algo para buscar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -95,27 +121,6 @@ namespace Donare
             finally
             {
                 con.Close();
-            }
-        }
-
-        // Doble clic → selecciona y cierra
-        private void dgvResultados_DoubleClick(object sender, EventArgs e)
-        {
-            if (dgvResultados.CurrentRow != null && dgvResultados.CurrentRow.Cells["IdDonante"].Value != null)
-            {
-                IdDonanteSeleccionado = dgvResultados.CurrentRow.Cells["IdDonante"].Value.ToString();
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-        }
-
-        // Enter en el TextBox también busca
-        private void txtValor_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btnBuscar.PerformClick();
-                e.SuppressKeyPress = true;
             }
         }
     }

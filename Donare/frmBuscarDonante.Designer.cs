@@ -64,6 +64,7 @@ namespace Donare
             this.btnBuscar.TabIndex = 2;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click_1);
             // 
             // cmbCriterio
             // 
@@ -84,7 +85,6 @@ namespace Donare
             this.Controls.Add(this.txtValor);
             this.Name = "frmBuscarDonante";
             this.Text = "frmBuscarDonante";
-
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultados)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
