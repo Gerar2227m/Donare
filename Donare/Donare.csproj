@@ -53,6 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cConexion.cs" />
+    <Compile Include="Donaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Donaciones.Designer.cs">
+      <DependentUpon>Donaciones.cs</DependentUpon>
+    </Compile>
     <Compile Include="Donantes.cs">
       <SubType>Form</SubType>
     </Compile>
