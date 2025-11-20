@@ -91,6 +91,7 @@ namespace Donare
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frmBuscarDonante";
             this.Text = "frmBuscarDonante";
+            this.Load += new System.EventHandler(this.frmBuscarDonante_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultados)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -46,7 +46,7 @@ namespace Donare
             cmbGenero.SelectedIndex = 0;
             cmbtipo.SelectedIndex = 0;
 
-            // Al inicio solo navegación, no edición
+           
             DeshabilitarEdicion();
         }
 
@@ -106,7 +106,7 @@ namespace Donare
         }
 
 
-        // 4. LIMPIAR CAMPOS
+        //  LIMPIAR CAMPOS
 
         private void LimpiarCampos()
         {
@@ -122,7 +122,7 @@ namespace Donare
         }
 
 
-        // 5. HABILITAR / DESHABILITAR EDICIÓN
+        //  HABILITAR / DESHABILITAR EDICIÓN
 
         private void HabilitarEdicion()
         {

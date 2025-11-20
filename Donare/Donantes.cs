@@ -35,11 +35,9 @@ namespace Donare
             dtpFechaNacimiento.ValueChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
             cmbSexo.SelectedIndexChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
 
-            // ESTOS SON LOS IMPORTANTES QUE FALTABAN:
             txtPresion.TextChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
-            txtPresion.KeyPress += txtPresion_KeyPress;  // ← el de la barra que ya tienes
+            txtPresion.KeyPress += txtPresion_KeyPress;  
 
-            // Enfermedades (ESTOS SON LOS QUE NO SE ACTUALIZABAN)
             chkVIH.CheckedChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
             chkHepB.CheckedChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
             chkHepB.CheckedChanged += (s, e) => EvaluarSiEstaApto_SinMensaje();
@@ -55,7 +53,6 @@ namespace Donare
             txtEdad.ReadOnly = true;
             dtpFechaRegistro.Enabled = false;
 
-            // DUI automático
             txtNumeroDocumento.KeyPress += (s, e) =>
             {
                 if (cmbTipoDocumento.Text == "DUI" && txtNumeroDocumento.Text.Length == 8 && e.KeyChar != (char)Keys.Back)
@@ -82,7 +79,7 @@ namespace Donare
             cmbRh.Items.AddRange(new[] { "+", "-" });
         }
 
-        // BOTONES
+ 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             LimpiarTodo();
@@ -147,7 +144,7 @@ namespace Donare
                             txtDireccion.Text = dr["Direccion"]?.ToString() ?? "";
                             dtpFechaRegistro.Value = Convert.ToDateTime(dr["FechaRegistro"]);
 
-                            // DATOS MÉDICOS (si existen)
+                            // DATOS MÉDICOS 
                             if (!dr.IsDBNull(dr.GetOrdinal("Peso")))
                             {
                                 numPeso.Value = Convert.ToDecimal(dr["Peso"]);
@@ -177,7 +174,7 @@ namespace Donare
                                 txtHistorialRelevante.Clear();
                             }
 
-                            ActualizarIMC(); // tu función del IMC
+                            ActualizarIMC(); //  función del IMC
 
                             esNuevo = false;
                             modoEdicion = false;
@@ -219,7 +216,7 @@ namespace Donare
 
             if (!EvaluarSiEstaApto_ConMensaje())
             {
-                return; // ← NO GUARDA si no está apto
+                return; //  NO GUARDA si no está apto
             }
 
             SqlConnection con = conexion.ConexionServer();
@@ -229,7 +226,7 @@ namespace Donare
                 con.Open();
                 tran = con.BeginTransaction();
 
-                // 1. Donante: INSERT o UPDATE
+                
                 string sqlDonante = esNuevo ?
                     @"INSERT INTO Donante (IdDonante, NombreCompleto, FechaNacimiento, SexoBiologico, TipoDocumento, NumeroDocumento, Telefono, Direccion, FechaRegistro)
                   VALUES (@id, @nom, @fnac, @sex, @tipodoc, @numdoc, @tel, @dir, GETDATE())" :
@@ -250,7 +247,7 @@ namespace Donare
                     cmd.ExecuteNonQuery();
                 }
 
-                // 2. Nueva evaluación médica
+                //  Nueva evaluación médica
                 string sqlEval = @"
                 INSERT INTO EvaluacionMedica 
                 (IdDonante, FechaEvaluacion, Peso, Talla, PresionArterial, Pulso, Temperatura, Hemoglobina,
@@ -303,7 +300,7 @@ namespace Donare
             
         }
 
-        // Función para generar ID (ajústala a tu lógica)
+        // Función para generar ID 
         private string GenerarIdDonante()
         {
             SqlConnection con = conexion.ConexionServer();
@@ -321,7 +318,7 @@ namespace Donare
         }
 
         // Resto de métodos (CargarDonanteCompleto, CargarUltimaEvaluacion, CargarHistorialDonaciones, ValidarDatos, LimpiarTodo)
-        // → te los paso si me dices que sí, o ya los tenías.
+
 
         private bool ValidarDatos()
         {
@@ -337,7 +334,7 @@ namespace Donare
 
         private void LimpiarTodo()
         {
-            // tu código de limpiar
+            //  código de limpiar
             idDonanteActual = "";
             esNuevo = true;
             modoEdicion = false;
@@ -350,14 +347,14 @@ namespace Donare
 
         private void ConfigurarNumericUpDowns()
         {
-            // TALLA (altura en cm) → permite decimales
+            // TALLA (altura en cm) 
             numTalla.DecimalPlaces = 0;    
             numTalla.Increment = 1;
             numTalla.Minimum = 100;
             numTalla.Maximum = 220;
             numTalla.Value = 170;
 
-            // PESO → permite medio kilo
+            // PESO  kilo
             numPeso.DecimalPlaces = 1;
             numPeso.Increment = 0.5M;
             numPeso.Minimum = 40;
@@ -464,7 +461,7 @@ namespace Donare
 
         private bool EvaluarSiEstaApto_ConMensaje()
         {
-            bool apto = EvaluarSiEstaApto_SinMensaje();  // reutiliza la anterior
+            bool apto = EvaluarSiEstaApto_SinMensaje();  
 
             if (!apto)
             {
@@ -536,7 +533,7 @@ namespace Donare
 
             if (!EvaluarSiEstaApto_ConMensaje())
             {
-                return; // ← NO GUARDA si no está apto
+                return; // NO GUARDA si no está apto
             }
 
             SqlConnection con = conexion.ConexionServer();
@@ -546,7 +543,7 @@ namespace Donare
                 con.Open();
                 tran = con.BeginTransaction();
 
-                // 1. Donante: INSERT o UPDATE
+           
                 string sqlDonante = esNuevo ?
                     @"INSERT INTO Donante (IdDonante, NombreCompleto, FechaNacimiento, SexoBiologico, TipoDocumento, NumeroDocumento, Telefono, Direccion, FechaRegistro)
                   VALUES (@id, @nom, @fnac, @sex, @tipodoc, @numdoc, @tel, @dir, GETDATE())" :
@@ -567,7 +564,7 @@ namespace Donare
                     cmd.ExecuteNonQuery();
                 }
 
-                // 2. Nueva evaluación médica
+             
                 string sqlEval = @"
                 INSERT INTO EvaluacionMedica 
                 (IdDonante, FechaEvaluacion, Peso, Talla, PresionArterial, Pulso, Temperatura, Hemoglobina,
@@ -627,7 +624,7 @@ namespace Donare
 
                 idDonanteActual = buscar.IdDonanteSeleccionado;
 
-                // CONSULTA CON UN SOLO READER (sin segundo DataReader)
+               
                 string sql = @"
             SELECT 
                 d.*, 
@@ -682,7 +679,7 @@ namespace Donare
                                 numTemperatura.Value = Convert.ToDecimal(dr["Temperatura"]);
                                 numHemoglobina.Value = Convert.ToDecimal(dr["Hemoglobina"]);
 
-                                // TIPO DE SANGRE (viene directo del JOIN)
+                                // TIPO DE SANGRE
                                 cmbGrupoSanguineo.Text = dr["Grupo"]?.ToString() ?? "";
                                 cmbRh.Text = dr["Rh"]?.ToString() ?? "";
 
@@ -690,7 +687,7 @@ namespace Donare
                                 chkHepB.Checked = (bool)dr["HepatitisB"];
                                 chkHepC.Checked = (bool)dr["HepatitisC"];
                                 chkSifilis.Checked = (bool)dr["Sifilis"];
-                                // chkChagas.Checked = (bool)dr["Chagas"]; // descomenta si tienes la columna
+                                
                                 txtHistorialRelevante.Text = dr["HistorialRelevante"]?.ToString() ?? "";
                                 chkApto.Checked = (bool)dr["Apto"];
                             }
@@ -785,7 +782,7 @@ namespace Donare
             chkHepC.Enabled = habilitado;
             chkSifilis.Enabled = habilitado;
             txtHistorialRelevante.ReadOnly = !habilitado;
-            chkApto.Enabled = false; // ← este NUNCA se edita manualmente
+            chkApto.Enabled = false;
 
             // Botones
             btnGuardar.Enabled = habilitado;
@@ -807,6 +804,11 @@ namespace Donare
         private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

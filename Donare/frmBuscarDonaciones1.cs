@@ -69,5 +69,10 @@ namespace Donare
                 this.Close();
             }
         }
+
+        private void frmBuscarDonaciones1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

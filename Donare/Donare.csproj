@@ -151,6 +151,9 @@
     <EmbeddedResource Include="Registrar Usuario.resx">
       <DependentUpon>Registrar Usuario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Solicitudes.resx">
+      <DependentUpon>Solicitudes.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -443,7 +443,6 @@ namespace Donare
             }
         }
 
-        // BOTONES TOOLSTRIP
         private void tsbGuardar_Click(object sender, EventArgs e)
         {
             Guardar();
@@ -499,6 +498,11 @@ namespace Donare
         }
 
         private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void Donaciones_Load(object sender, EventArgs e)
         {
 
         }

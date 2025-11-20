@@ -439,6 +439,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Name = "Donaciones";
             this.Text = "Donaciones";
+            this.Load += new System.EventHandler(this.Donaciones_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBolsas)).EndInit();

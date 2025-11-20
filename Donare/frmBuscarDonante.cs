@@ -24,15 +24,15 @@ namespace Donare
 
         private void ConfigurarFormulario()
         {
-            // Configurar el ComboBox (lo que ya tienes arriba)
+            
             cmbCriterio.Items.AddRange(new[] { "Nombre Completo", "DUI", "Código" });
-            cmbCriterio.SelectedIndex = 0; // por defecto busca por nombre
+            cmbCriterio.SelectedIndex = 0; 
 
             // Doble clic en el grid selecciona y cierra
             dgvResultados.DoubleClick += (s, e) => Seleccionar();
             dgvResultados.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) Seleccionar(); };
 
-            // Enter en el textbox hace búsqueda automática
+            
             txtValor.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) btnBuscar.PerformClick(); };
         }
 
@@ -94,7 +94,7 @@ namespace Donare
             }
         }
 
-        // Opcional: cargar todos al abrir
+        // cargar todos al abrir
         private void frmBuscarDonante_Load(object sender, EventArgs e)
         {
             CargarTodos();
@@ -109,10 +109,14 @@ namespace Donare
                 // Aquí guardamos el ID del donante seleccionado
                 IdDonanteSeleccionado = dgvResultados.CurrentRow.Cells["IdDonante"].Value.ToString();
 
-                // Esto hace que tu código actual en frmDonantes siga funcionando
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
+        }
+
+        private void frmBuscarDonante_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

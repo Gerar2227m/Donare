@@ -12,9 +12,13 @@ namespace Donare
 {
     public partial class Inicio : Form
     {
-        public Inicio()
+        int tipoUsuario;
+        bool panelVisible = false;
+        int panelWidth = 300;
+        public Inicio(int tipoUsuario)
         {
             InitializeComponent();
+            this.tipoUsuario = tipoUsuario;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -25,7 +29,12 @@ namespace Donare
 
         private void Inicio_Load(object sender, EventArgs e)
         {
+            if (tipoUsuario == 2)
+            {
+                button1.Enabled = false;
+                button3.Enabled = false;
 
+            }
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -54,6 +63,33 @@ namespace Donare
         {
             Donaciones donaciones = new Donaciones();
             donaciones.ShowDialog();
+        }
+
+        private void button7_Click_1(object sender, EventArgs e)
+        {
+            Donaciones donaciones = new Donaciones();
+            donaciones.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Solicitudes solicitudes = new Solicitudes();
+            solicitudes.ShowDialog();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            FrmLogin login = new FrmLogin();   
+            login.ShowDialog();                      
+            this.Hide();
+        }
+
+        
+        
+
+        private void flowNotificaciones_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

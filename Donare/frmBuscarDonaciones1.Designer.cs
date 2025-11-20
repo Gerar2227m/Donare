@@ -74,6 +74,7 @@ namespace Donare
             this.Controls.Add(this.txtFiltro);
             this.Name = "frmBuscarDonaciones1";
             this.Text = "frmBuscarDonaciones1";
+            this.Load += new System.EventHandler(this.frmBuscarDonaciones1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDonaciones)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
