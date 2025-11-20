@@ -181,9 +181,7 @@ namespace Donare
             this.button7.TabIndex = 8;
             this.button7.Text = "DONACIONES";
             this.button7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button7.UseVisualStyleBackColor = false;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
+            this.button7.UseVisualStyleBackColor = false;           // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
