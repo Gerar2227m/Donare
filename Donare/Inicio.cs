@@ -42,5 +42,12 @@ namespace Donare
         {
 
         }
+
+        private void button3_Click(object sender, EventArgs e) //Botón para iniciar pagina de reportes
+        {
+            frmReportes frm = new frmReportes();
+            frm.ShowDialog();
+
+        }
     }
 }
