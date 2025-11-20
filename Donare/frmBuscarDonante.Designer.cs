@@ -38,9 +38,10 @@ namespace Donare
             // 
             // txtValor
             // 
-            this.txtValor.Location = new System.Drawing.Point(51, 87);
+            this.txtValor.Location = new System.Drawing.Point(57, 109);
+            this.txtValor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtValor.Name = "txtValor";
-            this.txtValor.Size = new System.Drawing.Size(100, 22);
+            this.txtValor.Size = new System.Drawing.Size(112, 26);
             this.txtValor.TabIndex = 0;
             // 
             // dgvResultados
@@ -48,19 +49,22 @@ namespace Donare
             this.dgvResultados.AllowUserToAddRows = false;
             this.dgvResultados.AllowUserToDeleteRows = false;
             this.dgvResultados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvResultados.Location = new System.Drawing.Point(51, 175);
+            this.dgvResultados.Location = new System.Drawing.Point(57, 219);
+            this.dgvResultados.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvResultados.Name = "dgvResultados";
             this.dgvResultados.ReadOnly = true;
             this.dgvResultados.RowHeadersWidth = 51;
             this.dgvResultados.RowTemplate.Height = 24;
-            this.dgvResultados.Size = new System.Drawing.Size(694, 231);
+            this.dgvResultados.Size = new System.Drawing.Size(781, 289);
             this.dgvResultados.TabIndex = 1;
+            this.dgvResultados.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResultados_CellDoubleClick);
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Location = new System.Drawing.Point(548, 87);
+            this.btnBuscar.Location = new System.Drawing.Point(616, 109);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscar.Size = new System.Drawing.Size(84, 29);
             this.btnBuscar.TabIndex = 2;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
@@ -69,20 +73,22 @@ namespace Donare
             // cmbCriterio
             // 
             this.cmbCriterio.FormattingEnabled = true;
-            this.cmbCriterio.Location = new System.Drawing.Point(51, 43);
+            this.cmbCriterio.Location = new System.Drawing.Point(57, 54);
+            this.cmbCriterio.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbCriterio.Name = "cmbCriterio";
-            this.cmbCriterio.Size = new System.Drawing.Size(121, 24);
+            this.cmbCriterio.Size = new System.Drawing.Size(136, 28);
             this.cmbCriterio.TabIndex = 3;
             // 
             // frmBuscarDonante
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(900, 562);
             this.Controls.Add(this.cmbCriterio);
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.dgvResultados);
             this.Controls.Add(this.txtValor);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frmBuscarDonante";
             this.Text = "frmBuscarDonante";
             ((System.ComponentModel.ISupportInitialize)(this.dgvResultados)).EndInit();

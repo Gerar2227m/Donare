@@ -55,6 +55,8 @@ namespace Donare
             this.tabmedicos = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
             this.lblIMC = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
@@ -91,8 +93,6 @@ namespace Donare
             this.btnModificar = new System.Windows.Forms.ToolStripButton();
             this.btnEliminar = new System.Windows.Forms.ToolStripButton();
             this.btnBuscar = new System.Windows.Forms.ToolStripButton();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabpersonal.SuspendLayout();
             this.tabmedicos.SuspendLayout();
@@ -403,12 +403,32 @@ namespace Donare
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label27.Location = new System.Drawing.Point(138, 92);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(57, 20);
+            this.label27.TabIndex = 32;
+            this.label27.Text = "En Cm";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label26.Location = new System.Drawing.Point(138, 34);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(52, 20);
+            this.label26.TabIndex = 31;
+            this.label26.Text = "En Kg";
+            // 
             // lblIMC
             // 
             this.lblIMC.AutoSize = true;
             this.lblIMC.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIMC.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblIMC.Location = new System.Drawing.Point(873, 118);
+            this.lblIMC.Location = new System.Drawing.Point(597, 191);
             this.lblIMC.Name = "lblIMC";
             this.lblIMC.Size = new System.Drawing.Size(65, 32);
             this.lblIMC.TabIndex = 30;
@@ -719,6 +739,7 @@ namespace Donare
             this.toolStrip1.Size = new System.Drawing.Size(1152, 29);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // btnNuevo
             // 
@@ -769,26 +790,6 @@ namespace Donare
             this.btnBuscar.Size = new System.Drawing.Size(34, 24);
             this.btnBuscar.Text = "toolStripButton5";
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click_1);
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label26.Location = new System.Drawing.Point(138, 34);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(52, 20);
-            this.label26.TabIndex = 31;
-            this.label26.Text = "En Kg";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label27.Location = new System.Drawing.Point(138, 92);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(57, 20);
-            this.label27.TabIndex = 32;
-            this.label27.Text = "En Cm";
             // 
             // Donantes
             // 

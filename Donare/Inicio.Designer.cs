@@ -55,9 +55,9 @@ namespace Donare
             this.pnlHeader.Controls.Add(this.pictureBox1);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
-            this.pnlHeader.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.pnlHeader.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1161, 52);
+            this.pnlHeader.Size = new System.Drawing.Size(1742, 80);
             this.pnlHeader.TabIndex = 0;
             // 
             // label1
@@ -65,20 +65,19 @@ namespace Donare
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(61, 14);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(92, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(397, 26);
+            this.label1.Size = new System.Drawing.Size(565, 37);
             this.label1.TabIndex = 2;
             this.label1.Text = "Sistema de Salud: Banco de Sangre";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(8, 6);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 9);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(49, 42);
+            this.pictureBox1.Size = new System.Drawing.Size(74, 65);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -94,10 +93,10 @@ namespace Donare
             this.pnlmenulateral.Controls.Add(this.button7);
             this.pnlmenulateral.Controls.Add(this.button1);
             this.pnlmenulateral.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlmenulateral.Location = new System.Drawing.Point(0, 52);
-            this.pnlmenulateral.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.pnlmenulateral.Location = new System.Drawing.Point(0, 80);
+            this.pnlmenulateral.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlmenulateral.Name = "pnlmenulateral";
-            this.pnlmenulateral.Size = new System.Drawing.Size(176, 630);
+            this.pnlmenulateral.Size = new System.Drawing.Size(264, 969);
             this.pnlmenulateral.TabIndex = 1;
             // 
             // button12
@@ -105,10 +104,10 @@ namespace Donare
             this.button12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button12.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button12.Location = new System.Drawing.Point(14, 82);
-            this.button12.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.button12.Location = new System.Drawing.Point(21, 126);
+            this.button12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(148, 55);
+            this.button12.Size = new System.Drawing.Size(222, 85);
             this.button12.TabIndex = 13;
             this.button12.Text = "DONANTES";
             this.button12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -119,10 +118,10 @@ namespace Donare
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(22, 31);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.pictureBox2.Location = new System.Drawing.Point(33, 48);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(27, 26);
+            this.pictureBox2.Size = new System.Drawing.Size(40, 40);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 3;
             this.pictureBox2.TabStop = false;
@@ -132,10 +131,10 @@ namespace Donare
             this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button5.Location = new System.Drawing.Point(15, 360);
-            this.button5.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.button5.Location = new System.Drawing.Point(22, 554);
+            this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(148, 55);
+            this.button5.Size = new System.Drawing.Size(222, 85);
             this.button5.TabIndex = 12;
             this.button5.Text = "CAMPAÑAS";
             this.button5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -146,10 +145,10 @@ namespace Donare
             this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button3.Location = new System.Drawing.Point(14, 293);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.button3.Location = new System.Drawing.Point(21, 451);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(148, 55);
+            this.button3.Size = new System.Drawing.Size(222, 85);
             this.button3.TabIndex = 10;
             this.button3.Text = "REPORTES";
             this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -161,10 +160,10 @@ namespace Donare
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button2.Location = new System.Drawing.Point(15, 224);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.button2.Location = new System.Drawing.Point(22, 345);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(148, 55);
+            this.button2.Size = new System.Drawing.Size(222, 85);
             this.button2.TabIndex = 9;
             this.button2.Text = "SOLICITUDES";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -175,24 +174,25 @@ namespace Donare
             this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button7.Location = new System.Drawing.Point(14, 153);
-            this.button7.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.button7.Location = new System.Drawing.Point(21, 235);
+            this.button7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(148, 55);
+            this.button7.Size = new System.Drawing.Size(222, 85);
             this.button7.TabIndex = 8;
             this.button7.Text = "DONACIONES";
             this.button7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button7.UseVisualStyleBackColor = false;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button1.Location = new System.Drawing.Point(14, 17);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.button1.Location = new System.Drawing.Point(21, 26);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(148, 55);
+            this.button1.Size = new System.Drawing.Size(222, 85);
             this.button1.TabIndex = 2;
             this.button1.Text = "ADMINISTRADOR";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -203,23 +203,23 @@ namespace Donare
             // 
             this.panel1.BackColor = System.Drawing.Color.SeaShell;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(985, 52);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.panel1.Location = new System.Drawing.Point(1478, 80);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(176, 630);
+            this.panel1.Size = new System.Drawing.Size(264, 969);
             this.panel1.TabIndex = 13;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // Inicio
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1161, 682);
+            this.ClientSize = new System.Drawing.Size(1742, 1049);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlmenulateral);
             this.Controls.Add(this.pnlHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Inicio";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inicio";

@@ -71,6 +71,18 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmBuscarDonacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBuscarDonacion.Designer.cs">
+      <DependentUpon>frmBuscarDonacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmBuscarDonaciones1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBuscarDonaciones1.Designer.cs">
+      <DependentUpon>frmBuscarDonaciones1.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmBuscarDonante.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,11 +115,20 @@
     <Compile Include="Solicitudes.Designer.cs">
       <DependentUpon>Solicitudes.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Donaciones.resx">
+      <DependentUpon>Donaciones.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Donantes.resx">
       <DependentUpon>Donantes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBuscarDonacion.resx">
+      <DependentUpon>frmBuscarDonacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBuscarDonaciones1.resx">
+      <DependentUpon>frmBuscarDonaciones1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmBuscarDonante.resx">
       <DependentUpon>frmBuscarDonante.cs</DependentUpon>

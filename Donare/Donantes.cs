@@ -100,30 +100,43 @@ namespace Donare
         {
             using (var buscar = new frmBuscarDonante())
             {
-                if (buscar.ShowDialog() == DialogResult.OK && !string.IsNullOrEmpty(buscar.IdDonanteSeleccionado))
-                {
-                    idDonanteActual = buscar.IdDonanteSeleccionado;
+                if (buscar.ShowDialog() != DialogResult.OK || string.IsNullOrEmpty(buscar.IdDonanteSeleccionado))
+                    return;
 
-                    // ===== AQUÍ EMPIEZA EL CÓDIGO QUE CARGA EL DONANTE (100% FUNCIONA) =====
-                    SqlConnection con2 = conexion.ConexionServer();
+                idDonanteActual = buscar.IdDonanteSeleccionado;
+
+                const string sql = @"
+            SELECT 
+                d.*, 
+                em.Peso, em.Talla, em.PresionArterial, em.Pulso, em.Temperatura, em.Hemoglobina,
+                em.VIH, em.HepatitisB, em.HepatitisC, em.Sifilis, em.Chagas,
+                em.HistorialRelevante, em.Apto,
+                ts.Grupo, ts.Rh
+            FROM Donante d
+            LEFT JOIN EvaluacionMedica em ON d.IdDonante = em.IdDonante
+                AND em.FechaEvaluacion = (SELECT MAX(FechaEvaluacion) 
+                                          FROM EvaluacionMedica 
+                                          WHERE IdDonante = d.IdDonante)
+            LEFT JOIN TipoSangre ts ON em.IdTipoSangre = ts.IdTipoSangre
+            WHERE d.IdDonante = @id";
+
+                using (var con = conexion.ConexionServer())
+                using (var cmd = new SqlCommand(sql, con))
+                {
+                    cmd.Parameters.AddWithValue("@id", idDonanteActual);
+
                     try
                     {
-                        con2.Open();
-                        SqlCommand cmd = new SqlCommand(@"
-                    SELECT d.*, em.*
-                    FROM Donante d
-                    LEFT JOIN EvaluacionMedica em ON d.IdDonante = em.IdDonante 
-                        AND em.FechaEvaluacion = (
-                            SELECT MAX(FechaEvaluacion) 
-                            FROM EvaluacionMedica 
-                            WHERE IdDonante = d.IdDonante
-                        )
-                    WHERE d.IdDonante = @id", con2);
-                        cmd.Parameters.AddWithValue("@id", idDonanteActual);
-                        SqlDataReader dr = cmd.ExecuteReader();
-
-                        if (dr.Read())
+                        con.Open();
+                        using (var dr = cmd.ExecuteReader())
                         {
+                            if (!dr.Read())
+                            {
+                                MessageBox.Show("Donante no encontrado.");
+                                return;
+                            }
+
+                            // DATOS PERSONALES
                             txtIdDonante.Text = dr["IdDonante"].ToString();
                             txtNombreCompleto.Text = dr["NombreCompleto"].ToString();
                             dtpFechaNacimiento.Value = Convert.ToDateTime(dr["FechaNacimiento"]);
@@ -134,7 +147,7 @@ namespace Donare
                             txtDireccion.Text = dr["Direccion"]?.ToString() ?? "";
                             dtpFechaRegistro.Value = Convert.ToDateTime(dr["FechaRegistro"]);
 
-                            // Si tiene evaluación médica
+                            // DATOS MÉDICOS (si existen)
                             if (!dr.IsDBNull(dr.GetOrdinal("Peso")))
                             {
                                 numPeso.Value = Convert.ToDecimal(dr["Peso"]);
@@ -144,38 +157,38 @@ namespace Donare
                                 numTemperatura.Value = Convert.ToDecimal(dr["Temperatura"]);
                                 numHemoglobina.Value = Convert.ToDecimal(dr["Hemoglobina"]);
 
-                                int idTipo = Convert.ToInt32(dr["IdTipoSangre"]);
-                                SqlCommand cmdTipo = new SqlCommand("SELECT Grupo, Rh FROM TipoSangre WHERE IdTipoSangre = @t", con2);
-                                cmdTipo.Parameters.AddWithValue("@t", idTipo);
-                                SqlDataReader drTipo = cmdTipo.ExecuteReader();
-                                if (drTipo.Read())
-                                {
-                                    cmbGrupoSanguineo.Text = drTipo["Grupo"].ToString();
-                                    cmbRh.Text = drTipo["Rh"].ToString();
-                                }
-                                drTipo.Close();
+                                cmbGrupoSanguineo.Text = dr["Grupo"]?.ToString() ?? "";
+                                cmbRh.Text = dr["Rh"]?.ToString() ?? "";
 
                                 chkVIH.Checked = (bool)dr["VIH"];
                                 chkHepB.Checked = (bool)dr["HepatitisB"];
                                 chkHepC.Checked = (bool)dr["HepatitisC"];
                                 chkSifilis.Checked = (bool)dr["Sifilis"];
-                                txtHistorialRelevante.Text = dr["HistorialRelevante"]?.ToString() ?? "";
+                                txtHistorialRelevante.Text = dr["HistoriaRelevante"]?.ToString() ?? "";
                                 chkApto.Checked = (bool)dr["Apto"];
                             }
+                            else
+                            {
+                                // limpia datos médicos si no hay evaluación
+                                numPeso.Value = numTalla.Value = numPulso.Value = numTemperatura.Value = numHemoglobina.Value = 0;
+                                txtPresion.Clear();
+                                cmbGrupoSanguineo.Text = cmbRh.Text = "";
+                                chkVIH.Checked = chkHepB.Checked = chkHepC.Checked = chkSifilis.Checked = chkApto.Checked = false;
+                                txtHistorialRelevante.Clear();
+                            }
+
+                            ActualizarIMC(); // tu función del IMC
 
                             esNuevo = false;
                             modoEdicion = false;
                             tabControl1.SelectedTab = tabpersonal;
+
                             MessageBox.Show("Donante cargado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show("Error al cargar: " + ex.Message);
-                    }
-                    finally
-                    {
-                        con2.Close();
                     }
                 }
             }
@@ -609,30 +622,46 @@ namespace Donare
         {
             using (var buscar = new frmBuscarDonante())
             {
-                if (buscar.ShowDialog() == DialogResult.OK && !string.IsNullOrEmpty(buscar.IdDonanteSeleccionado))
-                {
-                    idDonanteActual = buscar.IdDonanteSeleccionado;
+                if (buscar.ShowDialog() != DialogResult.OK || string.IsNullOrEmpty(buscar.IdDonanteSeleccionado))
+                    return;
 
-                    // ===== AQUÍ EMPIEZA EL CÓDIGO QUE CARGA EL DONANTE (100% FUNCIONA) =====
-                    SqlConnection con2 = conexion.ConexionServer();
+                idDonanteActual = buscar.IdDonanteSeleccionado;
+
+                // CONSULTA CON UN SOLO READER (sin segundo DataReader)
+                string sql = @"
+            SELECT 
+                d.*, 
+                em.Peso, em.Talla, em.PresionArterial, em.Pulso, em.Temperatura,
+                em.Hemoglobina, em.VIH, em.HepatitisB, em.HepatitisC, em.Sifilis,
+                em.Chagas, em.HistorialRelevante, em.Apto,
+                ts.Grupo, ts.Rh
+            FROM Donante d
+            LEFT JOIN EvaluacionMedica em ON d.IdDonante = em.IdDonante
+                AND em.FechaEvaluacion = (
+                    SELECT MAX(FechaEvaluacion) 
+                    FROM EvaluacionMedica 
+                    WHERE IdDonante = d.IdDonante
+                )
+            LEFT JOIN TipoSangre ts ON em.IdTipoSangre = ts.IdTipoSangre
+            WHERE d.IdDonante = @id";
+
+                using (var con = conexion.ConexionServer())
+                using (var cmd = new SqlCommand(sql, con))
+                {
+                    cmd.Parameters.AddWithValue("@id", idDonanteActual);
+
                     try
                     {
-                        con2.Open();
-                        SqlCommand cmd = new SqlCommand(@"
-                    SELECT d.*, em.*
-                    FROM Donante d
-                    LEFT JOIN EvaluacionMedica em ON d.IdDonante = em.IdDonante 
-                        AND em.FechaEvaluacion = (
-                            SELECT MAX(FechaEvaluacion) 
-                            FROM EvaluacionMedica 
-                            WHERE IdDonante = d.IdDonante
-                        )
-                    WHERE d.IdDonante = @id", con2);
-                        cmd.Parameters.AddWithValue("@id", idDonanteActual);
-                        SqlDataReader dr = cmd.ExecuteReader();
-
-                        if (dr.Read())
+                        con.Open();
+                        using (var dr = cmd.ExecuteReader())
                         {
+                            if (!dr.Read())
+                            {
+                                MessageBox.Show("Donante no encontrado.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                return;
+                            }
+
+                            // === DATOS PERSONALES ===
                             txtIdDonante.Text = dr["IdDonante"].ToString();
                             txtNombreCompleto.Text = dr["NombreCompleto"].ToString();
                             dtpFechaNacimiento.Value = Convert.ToDateTime(dr["FechaNacimiento"]);
@@ -643,7 +672,7 @@ namespace Donare
                             txtDireccion.Text = dr["Direccion"]?.ToString() ?? "";
                             dtpFechaRegistro.Value = Convert.ToDateTime(dr["FechaRegistro"]);
 
-                            // Si tiene evaluación médica
+                            // === DATOS MÉDICOS (solo si tiene evaluación) ===
                             if (!dr.IsDBNull(dr.GetOrdinal("Peso")))
                             {
                                 numPeso.Value = Convert.ToDecimal(dr["Peso"]);
@@ -653,41 +682,51 @@ namespace Donare
                                 numTemperatura.Value = Convert.ToDecimal(dr["Temperatura"]);
                                 numHemoglobina.Value = Convert.ToDecimal(dr["Hemoglobina"]);
 
-                                int idTipo = Convert.ToInt32(dr["IdTipoSangre"]);
-                                SqlCommand cmdTipo = new SqlCommand("SELECT Grupo, Rh FROM TipoSangre WHERE IdTipoSangre = @t", con2);
-                                cmdTipo.Parameters.AddWithValue("@t", idTipo);
-                                SqlDataReader drTipo = cmdTipo.ExecuteReader();
-                                if (drTipo.Read())
-                                {
-                                    cmbGrupoSanguineo.Text = drTipo["Grupo"].ToString();
-                                    cmbRh.Text = drTipo["Rh"].ToString();
-                                }
-                                drTipo.Close();
+                                // TIPO DE SANGRE (viene directo del JOIN)
+                                cmbGrupoSanguineo.Text = dr["Grupo"]?.ToString() ?? "";
+                                cmbRh.Text = dr["Rh"]?.ToString() ?? "";
 
                                 chkVIH.Checked = (bool)dr["VIH"];
                                 chkHepB.Checked = (bool)dr["HepatitisB"];
                                 chkHepC.Checked = (bool)dr["HepatitisC"];
                                 chkSifilis.Checked = (bool)dr["Sifilis"];
+                                // chkChagas.Checked = (bool)dr["Chagas"]; // descomenta si tienes la columna
                                 txtHistorialRelevante.Text = dr["HistorialRelevante"]?.ToString() ?? "";
                                 chkApto.Checked = (bool)dr["Apto"];
                             }
+                            else
+                            {
+                                // Limpiar datos médicos si no hay evaluación
+                                numPeso.Value = numTalla.Value = numPulso.Value = numTemperatura.Value = numHemoglobina.Value = 0;
+                                txtPresion.Clear();
+                                cmbGrupoSanguineo.Text = cmbRh.Text = "";
+                                chkVIH.Checked = chkHepB.Checked = chkHepC.Checked = chkSifilis.Checked = chkApto.Checked = false;
+                                txtHistorialRelevante.Clear();
+                            }
 
+                            // Actualizar IMC y pestaña
+                            ActualizarIMC();
                             esNuevo = false;
-                            modoEdicion = false;
+                            modoEdicion = true;
                             tabControl1.SelectedTab = tabpersonal;
-                            MessageBox.Show("Donante cargado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            // === ACTIVAR BOTONES DE EDICIÓN ===
+                            btnModificar.Enabled = true;
+                            btnEliminar.Enabled = true;
+                            btnGuardar.Enabled = false;
+
+                            MessageBox.Show("Donante cargado correctamente.", "Éxito",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error al cargar: " + ex.Message);
-                    }
-                    finally
-                    {
-                        con2.Close();
+                        MessageBox.Show("Error al cargar donante: " + ex.Message, "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
+
         }
 
         private void btnEliminar_Click_1(object sender, EventArgs e)
@@ -763,6 +802,11 @@ namespace Donare
         private void numTalla_ValueChanged(object sender, EventArgs e)
         {
             ActualizarIMC();
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }
