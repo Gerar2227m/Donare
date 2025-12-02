@@ -93,6 +93,7 @@ namespace Donare
             DataRow row = dtUsuarios.Rows[indice];
             usuarioActualId = Convert.ToInt32(row["id_usuario"]);
             txtNombreUsuario.Text = row["nombre_usuario"].ToString();
+            txtNombreUsuario.Enabled = false;
             txtNombre.Text = row["nombre"].ToString();
             txtApellido.Text = row["apellido"].ToString();
             txtEmail.Text = row["email"].ToString();
@@ -130,6 +131,7 @@ namespace Donare
             txtEmail.Enabled = txtContraseña.Enabled = dtpFechaNacimiento.Enabled =
             cmbGenero.Enabled = cmbtipo.Enabled = true;
             btnGuardar_Click.Enabled = true;
+            txtNombreUsuario.Enabled = false;
         }
 
         private void DeshabilitarEdicion()
@@ -138,6 +140,7 @@ namespace Donare
             txtEmail.Enabled = txtContraseña.Enabled = dtpFechaNacimiento.Enabled =
             cmbGenero.Enabled = cmbtipo.Enabled = false;
             btnGuardar_Click.Enabled = false;
+            txtNombreUsuario.Enabled = false;
         }
 
         private bool IsValidEmail(string email)
@@ -274,7 +277,8 @@ namespace Donare
             HabilitarEdicion();      
             modoEdicion = false;       
             usuarioActualId = 0;      
-            txtNombreUsuario.Focus();  
+            txtNombreUsuario.Focus();
+            txtNombreUsuario.Enabled = true;
         }
 
         private void btnGuardar_Click_Click(object sender, EventArgs e)
@@ -369,6 +373,11 @@ namespace Donare
         }
 
         private void RegistrarUsuario_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
         }

@@ -32,6 +32,10 @@ namespace Donare
             if (tipoUsuario == 2)
             {
                 button1.Enabled = false;
+                button1.Visible = false;
+                button1.Hide();
+                button3.Visible = false;
+                button3.Hide();
                 button3.Enabled = false;
 
             }

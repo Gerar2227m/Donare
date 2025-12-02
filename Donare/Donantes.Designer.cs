@@ -94,6 +94,7 @@ namespace Donare
             this.btnEliminar = new System.Windows.Forms.ToolStripButton();
             this.btnBuscar = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.label28 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabpersonal.SuspendLayout();
             this.tabmedicos.SuspendLayout();
@@ -738,7 +739,7 @@ namespace Donare
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1152, 29);
+            this.toolStrip1.Size = new System.Drawing.Size(1152, 38);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
@@ -749,7 +750,7 @@ namespace Donare
             this.btnNuevo.Image = ((System.Drawing.Image)(resources.GetObject("btnNuevo.Image")));
             this.btnNuevo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(34, 24);
+            this.btnNuevo.Size = new System.Drawing.Size(34, 33);
             this.btnNuevo.Text = "toolStripButton1";
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
@@ -759,7 +760,7 @@ namespace Donare
             this.btnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("btnGuardar.Image")));
             this.btnGuardar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(34, 24);
+            this.btnGuardar.Size = new System.Drawing.Size(34, 33);
             this.btnGuardar.Text = "btnGuardar";
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click_1);
             // 
@@ -769,7 +770,7 @@ namespace Donare
             this.btnModificar.Image = ((System.Drawing.Image)(resources.GetObject("btnModificar.Image")));
             this.btnModificar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(34, 24);
+            this.btnModificar.Size = new System.Drawing.Size(34, 33);
             this.btnModificar.Text = "toolStripButton3";
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
@@ -779,7 +780,7 @@ namespace Donare
             this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
             this.btnEliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(34, 24);
+            this.btnEliminar.Size = new System.Drawing.Size(34, 33);
             this.btnEliminar.Text = "toolStripButton4";
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click_1);
             // 
@@ -789,7 +790,7 @@ namespace Donare
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
             this.btnBuscar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(34, 24);
+            this.btnBuscar.Size = new System.Drawing.Size(34, 33);
             this.btnBuscar.Text = "toolStripButton5";
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click_1);
             // 
@@ -799,15 +800,25 @@ namespace Donare
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(34, 24);
+            this.toolStripButton1.Size = new System.Drawing.Size(34, 33);
             this.toolStripButton1.Text = "toolStripButton1";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(850, 18);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(254, 20);
+            this.label28.TabIndex = 19;
+            this.label28.Text = "*Todos los campos son necesarios";
             // 
             // Donantes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1152, 662);
+            this.Controls.Add(this.label28);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.tabControl1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -899,5 +910,6 @@ namespace Donare
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.Label label28;
     }
 }

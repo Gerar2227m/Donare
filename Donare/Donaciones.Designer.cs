@@ -66,6 +66,7 @@
             this.colEstado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colUbicacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Agregar = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBolsas)).BeginInit();
             this.SuspendLayout();
@@ -115,6 +116,7 @@
             this.tsbModificar.Name = "tsbModificar";
             this.tsbModificar.Size = new System.Drawing.Size(34, 28);
             this.tsbModificar.Text = "toolStripButton3";
+            this.tsbModificar.Visible = false;
             this.tsbModificar.Click += new System.EventHandler(this.tsbModificar_Click_1);
             // 
             // tsbEliminar
@@ -198,11 +200,11 @@
             // 
             // btnBuscarDonante
             // 
-            this.btnBuscarDonante.Location = new System.Drawing.Point(353, 103);
+            this.btnBuscarDonante.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscarDonante.Image")));
+            this.btnBuscarDonante.Location = new System.Drawing.Point(344, 103);
             this.btnBuscarDonante.Name = "btnBuscarDonante";
-            this.btnBuscarDonante.Size = new System.Drawing.Size(46, 26);
+            this.btnBuscarDonante.Size = new System.Drawing.Size(34, 26);
             this.btnBuscarDonante.TabIndex = 7;
-            this.btnBuscarDonante.Text = "button1";
             this.btnBuscarDonante.UseVisualStyleBackColor = true;
             this.btnBuscarDonante.Click += new System.EventHandler(this.btnBuscarDonante_Click);
             // 
@@ -400,19 +402,29 @@
             // 
             // Agregar
             // 
-            this.Agregar.Location = new System.Drawing.Point(65, 388);
+            this.Agregar.Location = new System.Drawing.Point(65, 381);
             this.Agregar.Name = "Agregar";
-            this.Agregar.Size = new System.Drawing.Size(75, 23);
+            this.Agregar.Size = new System.Drawing.Size(156, 29);
             this.Agregar.TabIndex = 25;
-            this.Agregar.Text = "AgregarBolsa";
+            this.Agregar.Text = "Agregar Bolsa";
             this.Agregar.UseVisualStyleBackColor = true;
             this.Agregar.Click += new System.EventHandler(this.Agregar_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(868, 33);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(254, 20);
+            this.label8.TabIndex = 26;
+            this.label8.Text = "*Todos los campos son necesarios";
             // 
             // Donaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1183, 775);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.Agregar);
             this.Controls.Add(this.dgvBolsas);
             this.Controls.Add(this.label11);
@@ -487,5 +499,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colEstado;
         private System.Windows.Forms.DataGridViewTextBoxColumn colUbicacion;
         private System.Windows.Forms.Button Agregar;
+        private System.Windows.Forms.Label label8;
     }
 }
